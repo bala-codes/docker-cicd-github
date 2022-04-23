@@ -1,4 +1,6 @@
 name: Deploy to AWS ECR and AWS Lambda
+# https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
+# https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-amazon-elastic-container-service
 
 on:
   push:
@@ -10,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+        
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
