@@ -41,5 +41,4 @@ jobs:
       env:
         IMAGEURI: ${{ steps.custom-image.outputs.image }}
       run: |
-        aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:957799101181:function:docker-cicd-github --image-uri $IMAGEURI
-        echo "IMAGEURI : $IMAGEURI"
+        aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:957799101181:function:docker-cicd-github --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
