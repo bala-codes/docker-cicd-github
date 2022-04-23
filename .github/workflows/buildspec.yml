@@ -27,6 +27,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push image to Amazon ECR
+      id: custom-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: docker-cicd-github-ecr
@@ -34,3 +35,11 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+    - name: Update AWS Lambda function code with the latest container image
+      id: update-lambda
+      env:
+        IMAGEURI: ${{ steps.custom-image.outputs.image }}
+      run: |
+        aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:957799101181:function:docker-cicd-github --image-uri $IMAGEURI
+        echo "IMAGEURI : $IMAGEURI"
