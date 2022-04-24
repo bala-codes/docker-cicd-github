@@ -30,11 +30,12 @@ jobs:
       id: custom-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: docker-cicd-github-ecr
+        ECR_REPOSITORY: docker-cicd-github
         IMAGE_TAG: LATEST
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
     - name: Update AWS Lambda function code with the latest container image
       id: update-lambda
