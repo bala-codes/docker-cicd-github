@@ -42,4 +42,4 @@ jobs:
       env:
         IMAGEURI: ${{ steps.custom-image.outputs.image }}
       run: |
-        aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:957799101181:function:docker-cicd-github --image-uri 957799101181.dkr.ecr.us-east-1.amazonaws.com/docker-cicd-github-ecr:LATEST
+        aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:957799101181:function:docker-cicd-github --image-uri 957799101181.dkr.ecr.us-east-1.amazonaws.com/docker-cicd-github:LATEST
